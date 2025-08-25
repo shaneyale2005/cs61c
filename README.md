@@ -1,1 +1,1 @@
-# [cs61c](https://cs61c.org/sp25/)
+# [CS61C](https://cs61c.org/sp25/)
