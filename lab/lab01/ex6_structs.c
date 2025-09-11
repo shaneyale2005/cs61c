@@ -12,19 +12,20 @@ struct Student {
 int main() {
   // TODO: declare a variable student of type struct Student
   // Note: this struct is stored on the stack
-  ________________ student;
+  struct Student student;
 
   // TODO: print out the size of a struct Student
   // While this may seem out of place now, it will be useful in the future!
   // Hint: there's an operator that can calculate this for you!
-  printf("Size of a struct Student: %lu bytes\n", ______);
+  // int是4个字节，char*是8个字节，但是编译器会进行对其，因此结果为16个字节
+  printf("Size of a struct Student: %lu bytes\n", sizeof(student));
 
   // TODO: set student's id field to 5
   // Hint: the dot notation accesses a struct's fields
-  ______.______ = 5;
+  student.id = 5;
 
   // TODO: print out student's id field
-  printf("Student's ID: %d\n", ______);
+  printf("Student's ID: %d\n", student.id);
 
   return 0;
 }
