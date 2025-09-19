@@ -4,6 +4,8 @@
 
 # Please add your commands below this line
 
+# 这里主要是学习如何使用GDB进行调试，学会GDB的常用命令
+
 file ./a.out
 break main
 run
