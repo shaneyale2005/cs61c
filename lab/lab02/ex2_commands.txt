@@ -3,3 +3,12 @@
 # Lines starting with # are comments, feel free to add any to document your commands
 
 # Please add your commands below this line
+
+file ./a.out
+break main
+run
+next
+next
+print argc
+print argv
+quit

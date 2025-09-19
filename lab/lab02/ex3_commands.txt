@@ -3,3 +3,15 @@
 # Lines starting with # are comments, feel free to add any to document your commands
 
 # Please add your commands below this line
+# 主要是用来学习GDB命令，使用GDB进行调试
+
+file ./a.out
+break main
+run
+next
+next
+step
+print argc
+print argv[1]
+backtrace
+quit
