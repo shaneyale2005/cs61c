@@ -7,7 +7,7 @@
 #include <string.h>
 
 char *alloc_str(int len) {
-    return malloc(len*sizeof(char));
+    return malloc((len + 1) * sizeof(char));
 }
 
 /* Str helper functions */
@@ -19,7 +19,10 @@ typedef struct Str {
 Str make_Str(char *str) {
     /* Below is a designated initializer. It creates a Str struct and initializes
        its data field to str and its len field to strlen(str) */
-    return (Str){.data=str,.len=strlen(str)};
+    int len = strlen(str);
+    char *copy = alloc_str(len);
+    strcpy(copy, str);
+    return (Str){.data=copy,.len=len};
 }
 
 void free_Str(Str str) {
@@ -30,14 +33,15 @@ void free_Str(Str str) {
 Str concat(Str a, Str b) {
     int new_len = a.len + b.len;
     char *new_str = alloc_str(new_len);
+    new_str[new_len] = '\0';
     for (int i = 0; i < a.len; ++i) {
         new_str[i] = a.data[i];
     }
     for (int i = 0; i < b.len; ++i) {
         new_str[i+a.len] = b.data[i];
     }
-    free(a.data);
-    free(b.data);
+    if (a.data) free(a.data);
+    if (b.data) free(b.data);
     return (Str){.data=new_str, .len=new_len};
 }
 
@@ -45,15 +49,12 @@ Str concat(Str a, Str b) {
 Str translate_to_bork(char c) {
     switch(c) {
     case 'a': case 'e': case 'i': case 'o': case 'u': {
-        char *res = alloc_str(2);
-        res[0] = c;
-        res[1] = 'f';
-        return make_Str(res);
+        char buf[3] = {c, 'f', '\0'};
+        return make_Str(buf);
     }
     }
-    char *res = alloc_str(1);
-    res[0] = c;
-    return make_Str(res);
+    char buf[2] = {c, '\0'};
+    return make_Str(buf);
 }
 
 int main(int argc, char*argv[]) {
@@ -72,5 +73,7 @@ int main(int argc, char*argv[]) {
     printf("Input string: \"%s\"\n", src_str.data);
     printf("Length of translated string: %d\n", dest_str.len);
     printf("Translate to Bork: \"%s\"\n", dest_str.data);
+    free_Str(src_str);
+    free_Str(dest_str);
     return 0;
 }
