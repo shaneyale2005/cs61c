@@ -1,4 +1,4 @@
-# 💻 [CS61C: Great Ideas in Computer Architecture](https://cs61c.org/sp25/)
+# 💻 CS61C: Great Ideas in Computer Architecture
 
 ## 📚 Course Overview
 
