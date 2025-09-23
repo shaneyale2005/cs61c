@@ -24,7 +24,60 @@ static void update_head(game_t *game, unsigned int snum);
 /* Task 1 */
 game_t *create_default_game() {
   // TODO: Implement this function.
-  return NULL;
+  // 这里用来创建游戏
+  game_t* game = malloc(sizeof(game_t));
+  if (!game) return NULL;
+  const char *default_board[18] = {
+        "####################\n",
+        "#                  #\n",
+        "# d>D    *         #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "#                  #\n",
+        "####################\n"
+  };
+  unsigned int rows = sizeof(default_board) / sizeof(default_board[0]);
+  game->num_rows = rows;
+  game->board = malloc(sizeof(default_board));
+  for (unsigned int i = 0; i < rows; i++) {
+    // 这里用来复制字符串
+    game->board[i] = strdup(default_board[i]);
+  }
+  // 这里用来设置蛇的数量
+  game->num_snakes = 1;
+
+  // 分配蛇的数组
+  game->snakes=malloc(sizeof(snake_t));
+
+  // 如果分配失败了，需要释放以前的内存，避免内存泄漏
+  if (!game->snakes) {
+    for (unsigned int i = 0; i < rows; i++) {
+      free(game->board[i]);
+    }
+    free(game->board);
+    free(game);
+    return NULL;
+  }
+
+  // 初始化一条蛇一号
+  game->snakes[0].tail_row = 2;
+  game->snakes[0].tail_col = 2;
+  game->snakes[0].head_col = 4;
+  game->snakes[0].head_row = 2;
+  game->snakes[0].live = true;
+  
+  return game;
 }
 
 /* Task 2 */

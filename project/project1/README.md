@@ -1,1 +1,1 @@
-# 61C Project 1: snek
+# CS61C Project 1: snek
